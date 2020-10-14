@@ -8,6 +8,7 @@ WORKDIR /app
 
 COPY package.json /app
 RUN npm install --only=prod
+COPY index.js /app
 COPY server /app/server
 COPY public /app/public
 
