@@ -1,36 +1,43 @@
-// import dependencies and initialize express
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
+// Import express
+let express = require('express');
+// Import Body parser
+let bodyParser = require('body-parser');
+// Import Mongoose
+let mongoose = require('mongoose');
+// Initialize the app
+let app = express();
 
-const healthRoutes = require('./routes/health-route');
-const swaggerRoutes = require('./routes/swagger-route');
-
-const app = express();
-
-// enable parsing of http request body
-app.use(bodyParser.urlencoded({ extended: false }));
+// Import routes
+let apiRoutes = require("./api-routes");
+// Configure bodyparser to handle post requests
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(bodyParser.json());
+// Connect to Mongoose and set connection variable
+mongoose.connect('mongodb://localhost/resthub', { useNewUrlParser: true});
 
-// routes and api calls
-app.use('/health', healthRoutes);
-app.use('/swagger', swaggerRoutes);
+// Heroku Mongoose connection
+// mongoose.connect('mongodb://heroku_5686p02g:sia8l3fni4jmu7qbn0ac1t75mf@ds349857.mlab.com:49857/heroku_5686p02g', { useNewUrlParser: true });
 
-// default path to serve up index.html (single page application)
-app.all('', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '../public', 'index.html'));
+var db = mongoose.connection;
+
+// Added check for DB connection
+
+if(!db)
+    console.log("Error connecting db")
+else
+    console.log("Db connected successfully")
+
+// Setup server port
+var port = process.env.PORT || 8080;
+
+// Send message for default URL
+app.get('/', (req, res) => res.send('Hello World with Express'));
+
+// Use Api routes in the App
+app.use('/api', apiRoutes);
+// Launch app to listen to specified port
+app.listen(port, function () {
+    console.log("Running RestHub on port " + port);
 });
-
-// start node server
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`App UI available http://localhost:${port}`);
-  console.log(`Swagger UI available http://localhost:${port}/swagger/api-docs`);
-});
-
-// error handler for unmatched routes or api calls
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, '../public', '404.html'));
-});
-
-module.exports = app;
