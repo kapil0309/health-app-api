@@ -15,7 +15,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 // Connect to Mongoose and set connection variable
-mongoose.connect('mongodb://user:password@mongodb:27017/inventory', { useNewUrlParser: true});
+// mongodb://user:password@mongodb-36-rhel7.demo-kapil-shiladitya.svc.cluster.local:27017/mongodb
+
+mongoose.connect('mongodb://user:password@mongodb-36-rhel7.demo-kapil-shiladitya.svc.cluster.local:27017/mongodb', { useNewUrlParser: true});
 //mongoose.connect('mongodb://user:password@mongodb:27017/health-app-api', { useNewUrlParser: true});
 
 
