@@ -20,7 +20,7 @@ router.route('/contacts')
     .patch(contactController.update)
     .put(contactController.update)
     .delete(contactController.delete); */
-    router.route('/contacts/:medicalId')
+    router.route('/contacts/:contactmedicalId')
     .get(contactController.view)
     .patch(contactController.update)
     .put(contactController.update)
