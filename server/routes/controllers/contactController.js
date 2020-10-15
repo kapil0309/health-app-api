@@ -6,7 +6,7 @@ exports.index = function (req, res) {
     Contact.get(function (err, contacts) {
         if (err) {
             res.json({
-                status: 400,
+                status: 404,
                 message: err,
             });
         }
@@ -21,11 +21,13 @@ exports.index = function (req, res) {
 exports.new = function (req, res) {
     var contact = new Contact();
     contact.name = req.body.name ? req.body.name : contact.name;
+    contact.medicalId = req.body.medicalId,
     contact.gender = req.body.gender,
-    contact.dob = req.body.dob,
+    contact.phone = req.body.phone,
     contact.ailments = req.body.ailments,
     contact.medicines = req.body.medicines,
-    contact.number = req.body.number,
+    contact.dob = req.body.dob
+    
 // save the contact and check for errors
     contact.save(function (err) {
         // Check for validation error
@@ -55,11 +57,13 @@ exports.update = function (req, res) {
         if (err)
             res.send(err);
         contact.name = req.body.name ? req.body.name : contact.name;
+        contact.medicalId = req.body.medicalId,
         contact.gender = req.body.gender,
-        contact.dob = req.body.dob,
+        contact.phone = req.body.phone,
         contact.ailments = req.body.ailments,
         contact.medicines = req.body.medicines,
-        contact.number = req.body.number,
+        contact.dob = req.body.dob
+        
 // save the contact and check for errors
         contact.save(function (err) {
             if (err)

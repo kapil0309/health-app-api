@@ -6,6 +6,7 @@ var contactSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    medicalId: String,
     
     gender: String,
     phone: String,
