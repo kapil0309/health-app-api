@@ -15,10 +15,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 // Connect to Mongoose and set connection variable
-mongoose.connect('mongodb://user:password@mongodb:27017/health-app-api', { useNewUrlParser: true});
+mongoose.connect('mongodb://user:password@mongodb:27017/inventory', { useNewUrlParser: true});
+//mongoose.connect('mongodb://user:password@mongodb:27017/health-app-api', { useNewUrlParser: true});
 
-// Heroku Mongoose connection
-// mongoose.connect('mongodb://heroku_5686p02g:sia8l3fni4jmu7qbn0ac1t75mf@ds349857.mlab.com:49857/heroku_5686p02g', { useNewUrlParser: true });
+
 
 var db = mongoose.connection;
 
